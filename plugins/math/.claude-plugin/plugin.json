@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "math",
+  "displayName": "Math Assessment Authoring",
+  "version": "0.1.0",
+  "description": "Skills for authoring math assessments grounded in pedagogical best practices: item writing, misconception-based distractors, standards and rigor alignment, problem set sequencing, tutoring supports, and quality review.",
+  "author": {
+    "name": "ASSISTments",
+    "url": "https://www.assistments.org"
+  },
+  "homepage": "https://www.assistments.org",
+  "keywords": ["math", "assessment", "pedagogy", "learning-science", "item-writing", "standards"]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "assistments",
+  "description": "ASSISTments plugins for Claude Code",
+  "owner": {
+    "name": "ASSISTments",
+    "email": "contact@assistments.org"
+  },
+  "plugins": [
+    {
+      "name": "math",
+      "source": "./plugins/math",
+      "description": "Skills for authoring math assessments grounded in pedagogical best practices",
+      "category": "education",
+      "tags": ["math", "assessment", "pedagogy", "learning-science", "authoring", "standards"]
+    }
+  ]
+}
