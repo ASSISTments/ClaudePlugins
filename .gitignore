@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+.DS_STORE
+**/.DS_Store
+._*
+.AppleDouble
+.LSOverride
+
+# Editors
+.idea/
+*.swp
+*~
