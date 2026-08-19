@@ -6,19 +6,53 @@ Marketplace name: **`assistments`**
 
 ## Install
 
+Repository: <https://github.com/ASSISTments/ClaudePlugins>
+
+In any Claude Code session:
+
 ```
-/plugin marketplace add assistments-org/ClaudePlugins
+/plugin marketplace add ASSISTments/ClaudePlugins
 /plugin install math@assistments
 ```
 
-Replace `assistments-org/ClaudePlugins` with this repository's actual `owner/repo` once it is pushed. To work against a local checkout instead:
+`/plugin install` opens a details view where you pick an installation scope to confirm. If the install summary says `Run /reload-plugins to activate.`, run that command.
+
+To pull down later changes:
 
 ```
-/plugin marketplace add /path/to/ClaudePlugins
+/plugin marketplace update assistments
+```
+
+Updates reach you when the plugin's `version` in its manifest changes, so a marketplace update after a version bump is what refreshes the skill.
+
+## Setup
+
+The `math` plugin's skills work out of the box for analysis and drafting. Saving problems into ASSISTments additionally requires the ASSISTments MCP server:
+
+- The skills call the `ASSISTments Auth` MCP tools (for example `assistments_save_problem`) to write problems and return preview links. That server is **not** bundled with this plugin — connect it separately in your Claude client, and run `/mcp` to confirm it shows as connected and authenticated.
+- Without it, `math-standard-unpacker` still unpacks standards and drafts problems for review; it just cannot save them.
+
+Verify the install by invoking a skill directly:
+
+```
+/math:math-standard-unpacker
+```
+
+### Work from a local checkout
+
+To test changes before pushing, point the marketplace at your clone instead of GitHub:
+
+```
+git clone https://github.com/ASSISTments/ClaudePlugins.git
+```
+
+```
+/plugin marketplace add /absolute/path/to/ClaudePlugins
 /plugin install math@assistments
+/plugin marketplace update assistments    # after each edit
 ```
 
-If the install summary says `Run /reload-plugins to activate.`, run that command.
+Skills are read at load time, so refresh the marketplace (or run `/reload-plugins`) after editing a `SKILL.md`. A given marketplace name can only be registered once per user — adding the local checkout replaces the GitHub-hosted `assistments` marketplace until you re-add it.
 
 ## Plugins
 
