@@ -6,43 +6,88 @@ Marketplace name: **`assistments`**
 
 ## Install
 
+Repository: <https://github.com/ASSISTments/ClaudePlugins>
+
+In any Claude Code session:
+
 ```
-/plugin marketplace add assistments-org/ClaudePlugins
+/plugin marketplace add ASSISTments/ClaudePlugins
 /plugin install math@assistments
 ```
 
-Replace `assistments-org/ClaudePlugins` with this repository's actual `owner/repo` once it is pushed. To work against a local checkout instead:
+`/plugin install` opens a details view where you pick an installation scope to confirm. If the install summary says `Run /reload-plugins to activate.`, run that command.
+
+To pull down later changes:
 
 ```
-/plugin marketplace add /path/to/ClaudePlugins
+/plugin marketplace update assistments
+```
+
+Updates reach you when the plugin's `version` in its manifest changes, so a marketplace update after a version bump is what refreshes the skill.
+
+## Setup
+
+The `math` plugin's skills work out of the box for analysis and drafting. Saving problems into ASSISTments additionally requires the ASSISTments MCP server:
+
+- The skills call the `ASSISTments Auth` MCP tools (for example `assistments_save_problem`) to write problems and return preview links. That server is **not** bundled with this plugin — connect it separately in your Claude client, and run `/mcp` to confirm it shows as connected and authenticated.
+- Without it, `math-standard-unpacker` still unpacks standards and drafts problems for review; it just cannot save them.
+
+Verify the install by invoking a skill directly:
+
+```
+/math:math-standard-unpacker
+```
+
+### Work from a local checkout
+
+To test changes before pushing, point the marketplace at your clone instead of GitHub:
+
+```
+git clone https://github.com/ASSISTments/ClaudePlugins.git
+```
+
+```
+/plugin marketplace add /absolute/path/to/ClaudePlugins
 /plugin install math@assistments
+/plugin marketplace update assistments    # after each edit
 ```
 
-If the install summary says `Run /reload-plugins to activate.`, run that command.
+Skills are read at load time, so refresh the marketplace (or run `/reload-plugins`) after editing a `SKILL.md`. A given marketplace name can only be registered once per user — adding the local checkout replaces the GitHub-hosted `assistments` marketplace until you re-add it.
 
 ## Plugins
 
 ### `math` — Math Assessment Authoring
 
-Skills for writing math assessment content that holds up pedagogically. Invoke a skill directly as `/math:<skill>`, or just describe what you need and Claude will pick the relevant one.
+Skills for turning math standards into teachable, assessable content. Invoke a skill directly as `/math:<skill>`, or just describe what you need and Claude will pick the relevant one.
 
 | Skill | Use it to |
 | :-- | :-- |
-| `write-assessment-item` | Draft a single item for one learning objective — stem, answer type, accepted answers |
-| `design-distractors` | Build multiple-choice options where each wrong answer diagnoses a specific misconception |
-| `align-to-standards` | Align items to standards and a rigor level (DOK/Bloom's), and check blueprint coverage |
-| `build-problem-set` | Sequence items into a set — difficulty ramp, interleaving, spaced review, time budget |
-| `write-tutoring-support` | Write hint ladders, scaffolding sub-questions, worked examples, and answer-specific feedback |
-| `review-assessment-quality` | Pre-publication review: math accuracy, clarity, bias and accessibility, alignment |
+| `math-standard-unpacker` | Break a math standard into teachable, assessable sub-skills with vertical alignment and an item map, then build ASSISTments problems from it |
 
-The skills compose. A typical flow is `write-assessment-item` → `design-distractors` → `write-tutoring-support` → `build-problem-set` → `review-assessment-quality`.
+#### `math-standard-unpacker`
+
+Paste a standard (CCSS, state, or district — text or a code) and the skill produces:
+
+1. **Standard Unpacked** — the cognitive-demand verb and the content it applies to, which sets the rigor floor.
+2. **Skills** — the 3–6 independently teachable sub-skills the standard bundles, each as an "I can" statement, with every skill justified against specific words in the standard's text.
+3. **Vertical alignment** — prior knowledge assumed, and what the standard builds toward.
+4. **Item map** — per skill: target item count, the sub-cases problems should sample, and the suggested ASSISTments problem type (`CHOOSE_ONE`, `CHOOSE_N`, `FILL_IN`, `DRAG_DROP`, `SORT`, `OPEN_RESPONSE`).
+
+It then offers two paths, and waits for you to choose:
+
+- **Skill Practice** — 4–6 problems per skill you select, spread across that skill's sub-cases. For assigning fluency practice.
+- **Standard Mastery Quiz** — exactly one item per skill, each at the skill's *most demanding* case, so results show which sub-skill a student is stuck on.
+
+Problems are drafted for your review and only written to ASSISTments after you approve them, via the `ASSISTments Auth` MCP tools. Without that MCP server connected, the skill still produces the breakdown and the problem drafts — it just cannot save them.
+
+The skill also intercepts requests that sound like plain problem generation — "give me a quiz on 7.RP.A.2", "mastery check for 6.NS.B.3", "quick check on this standard" — and runs the breakdown first so the problems trace back to specific sub-skills.
 
 Example prompts:
 
-- "Write three 7th-grade items on proportional relationships at DOK 2."
-- "Give me distractors for this item and tell me what each one catches."
-- "Turn these eight items into a homework set with 25% spiral review."
-- "Review this quiz before I publish it."
+- "Unpack 8.EE.C.7b."
+- "Break down this standard: *Fluently add, subtract, multiply, and divide multi-digit decimals using the standard algorithm for each operation.*"
+- "I need a mastery quiz for 7.RP.A.2."
+- "Build a skill builder for the standard I just pasted."
 
 ## Repository layout
 
