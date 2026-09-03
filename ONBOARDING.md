@@ -55,14 +55,20 @@ If that prints a version number, you already have it — skip down to `brew inst
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-It finishes by printing a "Next steps" note. Run these two lines, which are what that note asks for. The first makes `brew` work in future Terminal windows; the second makes it work in this one, so you don't need to open a new tab:
+Once that finishes, check again:
+
+```bash
+brew --version
+```
+
+If that now prints a version number, skip ahead to `brew install gh` — this happens on an older Intel Mac, where Homebrew lands somewhere Terminal already knows about.
+
+**If it still says `command not found: brew`**, the installer printed a "Next steps" note and is waiting on you to run it. These two lines are what that note asks for. The first makes `brew` work in future Terminal windows; the second makes it work in this one, so you don't need to open a new tab:
 
 ```bash
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
-
-(On an older Intel Mac, Homebrew lands somewhere Terminal already knows about. If `brew --version` works now, skip those two lines.)
 
 Now install the GitHub command-line tool:
 
