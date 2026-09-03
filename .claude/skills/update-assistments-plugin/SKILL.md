@@ -11,7 +11,10 @@ when_to_use: Use after test-skill has pointed the assistments marketplace at a l
 /plugin marketplace remove assistments
 /plugin marketplace add ASSISTments/ClaudePlugins
 /plugin install math@assistments
+/reload-plugins
 ```
+
+The trailing `/reload-plugins` is a safety step in case the current session doesn't otherwise pick up the fresh install — the reinstall itself is what actually restores the published version.
 
 Confirm briefly that `assistments` is back on the GitHub-hosted source.
 

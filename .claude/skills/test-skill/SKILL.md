@@ -62,11 +62,14 @@ Always swap explicitly — never leave it ambiguous whether the marketplace is p
 /plugin marketplace remove assistments
 /plugin marketplace add <path being tested>
 /plugin install math@assistments
+/reload-plugins
 ```
 
 `<path being tested>` is the current directory for a self-test, or the worktree path from step 2 for a PR. Tell the user plainly: this points `assistments` at the code under test until they run [[update-assistments-plugin]] to switch back to the published version.
 
-Plugins are copied into a cache at install time, and this is a local dev install with no pinned version — so neither `/plugin marketplace update assistments` (only refreshes the catalog, not an installed plugin's files) nor `/reload-plugins` (only activates what's already cached) is guaranteed to pick up a further edit. After every further edit, redo the full swap above.
+The trailing `/reload-plugins` is a safety step, not the mechanism doing the work — the fresh install is. It exists in case the current session doesn't otherwise pick up a fresh install of a plugin whose name was already loaded earlier in this same conversation.
+
+Plugins are copied into a cache at install time, and this is a local dev install with no pinned version — so neither `/plugin marketplace update assistments` (only refreshes the catalog, not an installed plugin's files) nor `/reload-plugins` alone, without reinstalling (only activates what's already cached), is guaranteed to pick up a further edit. After every further edit, redo the full swap above, including the trailing `/reload-plugins`.
 
 If a worktree was created in step 2, once the user is done testing (not necessarily right away — they may still be iterating), clean it up: `git worktree remove <path>` and `git branch -D pr-<number>`. Safe to force-delete — it's a disposable local-only ref. This is separate from restoring the plugin install; doing one doesn't do the other.
 
