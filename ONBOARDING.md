@@ -36,13 +36,38 @@ Install the developer tools (git). If it says it's already installed, that's fin
 xcode-select --install
 ```
 
-Install the GitHub command-line tool. Download the `.pkg` from [github.com/cli/cli/releases](https://github.com/cli/cli/releases/latest) — take the file ending in `macOS_arm64.pkg` (or `amd64.pkg` on an Intel Mac) and double-click it. No Terminal needed for this part.
-
 Tell git who you are. **Use the exact email verified on your GitHub account** — this is the "unattributed" thing from above:
 
 ```bash
 git config --global user.name "Your Name"
 git config --global user.email "you@assistments.org"
+```
+
+Next you need Homebrew, the standard Mac installer for developer tools. Check whether you already have it:
+
+```bash
+brew --version
+```
+
+If that prints a version number, you already have it — skip down to `brew install gh`. **Only if it says `command not found: brew`**, install it. This takes a few minutes and asks for your Mac login password (the cursor won't move while you type it — that's normal):
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+It finishes by printing a "Next steps" note. Run these two lines, which are what that note asks for. The first makes `brew` work in future Terminal windows; the second makes it work in this one, so you don't need to open a new tab:
+
+```bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
+(On an older Intel Mac, Homebrew lands somewhere Terminal already knows about. If `brew --version` works now, skip those two lines.)
+
+Now install the GitHub command-line tool:
+
+```bash
+brew install gh
 ```
 
 Sign in to GitHub, and choose "Login with a web browser" when it asks:
