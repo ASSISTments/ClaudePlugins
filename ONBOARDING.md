@@ -150,7 +150,7 @@ You two are each other's reviewers, so a real review is the only quality gate th
 1. Open the pull request link. Read the change as prose. Does it say what it means?
 2. Check the `description` line. Would it fire on the phrasings a teacher actually types?
 3. Check the `version` in `plugin.json` went up. **If it didn't, the change reaches nobody** — installed users only get updates when that number changes. Ask for a bump.
-4. Actually try it: install the branch and give the skill a real prompt. Ask Claude in your own session — "test the skill on branch `docs/whatever`" — and it'll set that up.
+4. Actually try it: install the code from the PR and give the skill a real prompt — you don't need that branch on your machine. Ask Claude in your own session — "test the [skill name] skill from PR #12" (or paste the PR link) — and it'll fetch it and set that up.
 5. Approve, or leave a comment. Every comment thread has to be resolved before it can merge, so say clearly whether a comment is blocking or just a thought.
 
 Approving a change you didn't understand is worse than asking. Ask.
