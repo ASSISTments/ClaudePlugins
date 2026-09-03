@@ -1,7 +1,12 @@
 ---
 name: test-skill
 description: Checks an edited skill or manifest before it is submitted — runs plugin validation, catches the structural mistakes that make a skill silently fail to load, installs the code under test, and gives the user concrete prompts to try the skill for real. Can test a pull request that isn't checked out locally.
-when_to_use: Use after editing any SKILL.md, plugin.json, or marketplace.json, and whenever the user asks "does this work", "can we try it", "test this", "check my changes", "will Claude pick this up", or wonders whether a skill will actually trigger. Always use before submit-for-review. Also use to review a teammate's pull request — "test the skill from PR #12", or a pasted PR link.
+when_to_use: >-
+  Use after editing any SKILL.md, plugin.json, or marketplace.json, and whenever
+  the user asks "does this work", "can we try it", "test this", "check my
+  changes", "will Claude pick this up", or wonders whether a skill will actually
+  trigger. Always use before submit-for-review. Also use to review a teammate's
+  pull request — "test the skill from PR #12", or a pasted PR link.
 argument-hint: <skill-name> [PR link or number]
 allowed-tools: Bash(claude plugin validate:*), Bash(git status:*), Bash(git diff:*), Bash(git fetch:*), Bash(git worktree:*), Bash(git branch -D:*), Bash(gh pr view:*), Bash(wc:*), Bash(ls:*)
 ---
