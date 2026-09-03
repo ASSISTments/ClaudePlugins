@@ -61,7 +61,7 @@ Always swap explicitly — never leave it ambiguous whether the marketplace is p
 
 `<path being tested>` is the current directory for a self-test, or the worktree path from step 2 for a PR. Tell the user plainly: this points `assistments` at the code under test until they run [[update-assistments-plugin]] to switch back to the published version.
 
-Skills are read at load time, so after every further edit run `/plugin marketplace update assistments` or `/reload-plugins`.
+Plugins are copied into a cache at install time, and this is a local dev install with no pinned version — so neither `/plugin marketplace update assistments` (only refreshes the catalog, not an installed plugin's files) nor `/reload-plugins` (only activates what's already cached) is guaranteed to pick up a further edit. After every further edit, redo the full swap above.
 
 If a worktree was created in step 2, once the user is done testing (not necessarily right away — they may still be iterating), clean it up: `git worktree remove <path>` and `git branch -D pr-<number>`. Safe to force-delete — it's a disposable local-only ref. This is separate from restoring the plugin install; doing one doesn't do the other.
 
