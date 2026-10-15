@@ -9,6 +9,7 @@
     "url": "https://www.assistments.org"
   },
   "homepage": "https://www.assistments.org",
+  "license": "MIT",
   "icon": "./assistments_logo.png",
   "privacyPolicyUrl": "https://www.assistments.org/privacy-policy-assistments",
   "keywords": ["math", "assessment", "pedagogy", "learning-science", "item-writing", "standards"]
