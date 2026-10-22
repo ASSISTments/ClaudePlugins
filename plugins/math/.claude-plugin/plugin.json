@@ -2,12 +2,15 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "math",
   "displayName": "Math Assessment Authoring",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Unpacks a math standard into teachable, assessable sub-skills with vertical alignment and an item map, then drafts ASSISTments problems from it — skill practice sets or a diagnostic mastery quiz.",
   "author": {
     "name": "ASSISTments",
     "url": "https://www.assistments.org"
   },
   "homepage": "https://www.assistments.org",
+  "license": "MIT",
+  "icon": "./assistments_logo.png",
+  "privacyPolicyUrl": "https://www.assistments.org/privacy-policy-assistments",
   "keywords": ["math", "assessment", "pedagogy", "learning-science", "item-writing", "standards"]
 }

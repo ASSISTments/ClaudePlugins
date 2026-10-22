@@ -27,10 +27,19 @@ Updates reach you when the plugin's `version` in its manifest changes, so a mark
 
 ## Setup
 
-The `math` plugin's skills work out of the box for analysis and drafting. Saving problems into ASSISTments additionally requires the ASSISTments MCP server:
+The `math` plugin's skills work out of the box for analysis and drafting. Saving problems into ASSISTments additionally requires the ASSISTments connector:
 
-- The skills call the `ASSISTments Auth` MCP tools (for example `assistments_save_problem`) to write problems and return preview links. That server is **not** bundled with this plugin — connect it separately in your Claude client, and run `/mcp` to confirm it shows as connected and authenticated.
+- The skills call the ASSISTments connector's tools (for example `assistments_save_problem`) to write problems and return preview links. The connector is **not** bundled with this plugin — add **ASSISTments** from the Connectors Directory (Customize > Connectors in Claude), and run `/mcp` to confirm it shows as connected and authenticated. See [Connecting ASSISTments with Claude](https://www.assistments.org/user-resources/connecting-assistments-with-claude).
 - Without it, `math-standard-unpacker` still unpacks standards and drafts problems for review; it just cannot save them.
+
+## Data and privacy
+
+This plugin is markdown skills and a manifest only. It runs no code, makes no network calls, and collects nothing.
+
+- **What leaves your machine:** only what you paste into the conversation, which Claude processes under your own Claude account terms, and — if you connect the ASSISTments connector and approve a problem — that problem's content, which is saved to your ASSISTments account.
+- **Nothing is saved without approval.** Problems are drafted for your review; the skill saves only the ones you approve.
+- **Student data:** the skills never ask for student names or records. ASSISTments states that student personally identifiable information is never transmitted through the connector.
+- Saved content is covered by the [ASSISTments privacy policy](https://www.assistments.org/privacy-policy-assistments).
 
 Verify the install by invoking a skill directly:
 
@@ -78,7 +87,7 @@ It then offers two paths, and waits for you to choose:
 - **Skill Practice** — 4–6 problems per skill you select, spread across that skill's sub-cases. For assigning fluency practice.
 - **Standard Mastery Quiz** — exactly one item per skill, each at the skill's *most demanding* case, so results show which sub-skill a student is stuck on.
 
-Problems are drafted for your review and only written to ASSISTments after you approve them, via the `ASSISTments Auth` MCP tools. Without that MCP server connected, the skill still produces the breakdown and the problem drafts — it just cannot save them.
+Problems are drafted for your review and only written to ASSISTments after you approve them, via the ASSISTments connector. Without it connected, the skill still produces the breakdown and the problem drafts — it just cannot save them.
 
 The skill also intercepts requests that sound like plain problem generation — "give me a quiz on 7.RP.A.2", "mastery check for 6.NS.B.3", "quick check on this standard" — and runs the breakdown first so the problems trace back to specific sub-skills.
 
@@ -93,9 +102,12 @@ Example prompts:
 
 ```
 .claude-plugin/marketplace.json     # marketplace catalog
+LICENSE                             # MIT
 plugins/
 └── math/
     ├── .claude-plugin/plugin.json  # plugin manifest
+    ├── assistments_logo.png        # directory icon
+    ├── LICENSE
     └── skills/
         └── <skill-name>/SKILL.md
 ```
@@ -103,3 +115,7 @@ plugins/
 ## Contributing
 
 See [CLAUDE.md](CLAUDE.md) for conventions, validation, and how to add a skill or a plugin.
+
+## License
+
+[MIT](LICENSE) © 2026 The ASSISTments Foundation
